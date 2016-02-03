@@ -1,12 +1,9 @@
 package io.pivotal.errorHandling;
 
-import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-import retrofit.RetrofitError;
 
 import java.net.UnknownServiceException;
 

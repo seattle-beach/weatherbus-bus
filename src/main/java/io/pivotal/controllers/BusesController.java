@@ -4,7 +4,9 @@ import io.pivotal.model.Coordinate;
 import io.pivotal.model.StopInfo;
 import io.pivotal.service.BusService;
 import io.pivotal.service.Departure;
-import io.pivotal.view.*;
+import io.pivotal.view.DepartureCollectionPresenter;
+import io.pivotal.view.StopInfoCollectionPresenter;
+import io.pivotal.view.StopInfoPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.UnknownServiceException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/v1")

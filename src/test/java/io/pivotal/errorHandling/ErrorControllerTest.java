@@ -1,6 +1,5 @@
 package io.pivotal.errorHandling;
 
-import com.google.gson.JsonSyntaxException;
 import io.pivotal.TestUtilities;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import retrofit.RetrofitError;
 
 import static net.javacrumbs.jsonunit.spring.JsonUnitResultMatchers.json;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
