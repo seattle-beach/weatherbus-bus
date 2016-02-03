@@ -20,8 +20,11 @@ public class BusService {
 
     public List<Departure> getDeparturesForStop(String stopId) throws UnknownServiceException {
         try {
-            ArrivalsAndDeparturesForStopResponse response = service
+            DeparturesResponse response = service
                     .getDeparturesForStop(stopId);
+            if (response.getData() == null) {
+                throw new UnknownServiceException();
+            }
             return response.getData().getEntry().getDepartures();
         }
         catch (RetrofitError e) {
@@ -34,6 +37,9 @@ public class BusService {
         try {
             StopResponse response = service
                     .getStopInfo(stopId);
+            if (response.getData() == null) {
+                throw new UnknownServiceException();
+            }
             StopInfo stopInfo = new StopInfo(
                     response.getData().getEntry().getStopId(),
                     response.getData().getEntry().getName(),
