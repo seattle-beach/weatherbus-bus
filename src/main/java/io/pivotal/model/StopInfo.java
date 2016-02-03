@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class StopInfo {
-    String id;
+    String stopId;
     String name;
 
     @SerializedName("lat")
@@ -13,4 +13,11 @@ public class StopInfo {
 
     @SerializedName("lon")
     double longitude;
+
+    public StopInfo(String stopId, String name, double latitude, double longitude) {
+        this.stopId = stopId;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

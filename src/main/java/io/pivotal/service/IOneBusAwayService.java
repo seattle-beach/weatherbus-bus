@@ -11,7 +11,7 @@ public interface IOneBusAwayService {
     ArrivalsAndDeparturesForStopResponse getDeparturesForStop(@Path("stop") String stopId);
 
     @GET("/api/where/stop/{stop}.json?key=" + Constants.ONEBUSAWAY_KEY)
-    StopResponse getCoordinatesForStop(@Path("stop") String stopId);
+    StopResponse getStopInfo(@Path("stop") String stopId);
 
     @GET("/api/where/stops-for-location.json?key=" + Constants.ONEBUSAWAY_KEY)
     StopsForLocationResponse getStopsForLocation(@Query("lat") double lat, @Query("lon") double lng,

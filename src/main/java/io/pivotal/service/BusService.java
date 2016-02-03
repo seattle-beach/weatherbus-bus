@@ -27,26 +27,16 @@ public class BusService {
         }
     }
 
-    public Coordinate getCoordinatesForStop(String stopId) throws UnknownServiceException {
+    public StopInfo getStopInfo(String stopId) throws UnknownServiceException {
         try {
             StopResponse response = service
-                    .getCoordinatesForStop(stopId);
-            return response.getCoordinates();
-        }
-        catch (RetrofitError e) {
-            e.printStackTrace();
-            throw new UnknownServiceException(e.getMessage());
-        }
-    }
-
-    public String getStopName(String stopId) throws UnknownServiceException, StopNotFoundException {
-        try {
-            StopResponse response = service
-                    .getCoordinatesForStop(stopId);
-            if (response == null || response.getData() == null) {
-                throw new StopNotFoundException();
-            }
-            return response.getData().getEntry().getName();
+                    .getStopInfo(stopId);
+            StopInfo stopInfo = new StopInfo(
+                    response.getData().getEntry().getStopId(),
+                    response.getData().getEntry().getName(),
+                    response.getData().getEntry().getLatitude(),
+                    response.getData().getEntry().getLongitude());
+            return stopInfo;
         }
         catch (RetrofitError e) {
             e.printStackTrace();
