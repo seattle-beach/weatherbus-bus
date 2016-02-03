@@ -1,10 +1,12 @@
 package io.pivotal.service;
 
 import io.pivotal.Constants;
+import org.springframework.stereotype.Component;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
+@Component
 public interface IOneBusAwayService {
     @GET("/api/where/arrivals-and-departures-for-stop/{stop}.json?key=" +
             Constants.ONEBUSAWAY_KEY + "&minutesBefore=15&minutesAfter=45")

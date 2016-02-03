@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,19 +24,19 @@ public class BusesController {
     private BusService busService;
 
     @RequestMapping(path = "departures", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public @ResponseBody String getDepartures(@RequestParam String stopId) throws Exception {
+    public @ResponseBody String getDepartures(@RequestParam String stopId) throws UnknownServiceException {
         List<Departure> departures = busService.getDeparturesForStop(stopId);
         return new DepartureCollectionPresenter(departures).toJson();
     }
 
     @RequestMapping(path = "stops/{stopId}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public @ResponseBody String getStop(@PathVariable String stopId) throws Exception {
+    public @ResponseBody String getStop(@PathVariable String stopId) throws UnknownServiceException {
         return new StopInfoPresenter(busService.getStopInfo(stopId)).toJson();
     }
 
     @RequestMapping(path = "stops", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public @ResponseBody String getStopsForCoordinate(@RequestParam double lat, @RequestParam double lng,
-                                              @RequestParam double latSpan, @RequestParam double lngSpan) throws Exception {
+                                              @RequestParam double latSpan, @RequestParam double lngSpan) throws UnknownServiceException {
         List<StopInfo> stops = busService.getStopsForCoordinate(new Coordinate(lat,lng), latSpan, lngSpan);
         StopInfoCollectionPresenter pres = new StopInfoCollectionPresenter(stops);
         return pres.toJson();

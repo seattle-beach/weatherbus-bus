@@ -1,11 +1,14 @@
 package io.pivotal.service;
 
-import io.pivotal.errorHandling.StopNotFoundException;
+import io.pivotal.Constants;
 import io.pivotal.model.Coordinate;
 import io.pivotal.model.StopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.client.OkClient;
 
 import java.net.UnknownServiceException;
 import java.util.List;
@@ -54,5 +57,13 @@ public class BusService {
             e.printStackTrace();
             throw new UnknownServiceException(e.getMessage());
         }
+    }
+
+    @Bean
+    public IOneBusAwayService getBusService() {
+            RestAdapter.Builder builder = new RestAdapter.Builder().setEndpoint(Constants.ONEBUSAWAY_ENDPOINT);
+            builder.setClient(new OkClient());
+            RestAdapter adapter = builder.build();
+            return adapter.create(IOneBusAwayService.class);
     }
 }

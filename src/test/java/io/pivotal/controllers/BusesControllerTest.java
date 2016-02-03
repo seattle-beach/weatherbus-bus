@@ -1,12 +1,10 @@
-package io.pivotal.controller;
+package io.pivotal.controllers;
 
 import io.pivotal.TestUtilities;
-import io.pivotal.controllers.BusesController;
 import io.pivotal.model.Coordinate;
 import io.pivotal.model.StopInfo;
 import io.pivotal.service.BusService;
 import io.pivotal.service.Departure;
-import io.pivotal.service.StopResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
