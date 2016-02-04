@@ -1,15 +1,20 @@
 package io.pivotal.service;
 
-import io.pivotal.Constants;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Response;
+import io.pivotal.Config;
 import io.pivotal.model.Coordinate;
 import io.pivotal.model.StopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.OkClient;
 
+import java.io.IOException;
 import java.net.UnknownServiceException;
 import java.util.List;
 
@@ -26,8 +31,7 @@ public class BusService {
                 throw new UnknownServiceException();
             }
             return response.getData().getEntry().getDepartures();
-        }
-        catch (RetrofitError e) {
+        } catch (RetrofitError e) {
             e.printStackTrace();
             throw new UnknownServiceException(e.getMessage());
         }
@@ -46,8 +50,7 @@ public class BusService {
                     response.getData().getEntry().getLatitude(),
                     response.getData().getEntry().getLongitude());
             return stopInfo;
-        }
-        catch (RetrofitError e) {
+        } catch (RetrofitError e) {
             e.printStackTrace();
             throw new UnknownServiceException(e.getMessage());
         }
@@ -59,7 +62,7 @@ public class BusService {
                     .getStopsForLocation(coordinate.getLatitude(), coordinate.getLongitude(),
                             latSpan, lngSpan);
             return response.getData().getStops();
-        } catch(RetrofitError e) {
+        } catch (RetrofitError e) {
             e.printStackTrace();
             throw new UnknownServiceException(e.getMessage());
         }
@@ -67,9 +70,10 @@ public class BusService {
 
     @Bean
     public IOneBusAwayService getBusService() {
-            RestAdapter.Builder builder = new RestAdapter.Builder().setEndpoint(Constants.ONEBUSAWAY_ENDPOINT);
-            builder.setClient(new OkClient());
-            RestAdapter adapter = builder.build();
-            return adapter.create(IOneBusAwayService.class);
+        RestAdapter.Builder builder = new RestAdapter.Builder().setEndpoint(Config.ONEBUSAWAY_ENDPOINT);
+        builder.setClient(new OkClient());
+        builder.setRequestInterceptor(request -> request.addQueryParam("key", Config.ONEBUSAWAY_KEY));
+        RestAdapter adapter = builder.build();
+        return adapter.create(IOneBusAwayService.class);
     }
 }
