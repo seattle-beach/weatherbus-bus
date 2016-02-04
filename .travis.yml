@@ -1,0 +1,13 @@
+language: java
+jdk:
+- oraclejdk8
+deploy:
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  username: alidaka@pivotal.io
+  password:
+    secure: m/JraHsvQv6Y4+/bmDvG8yeW+VCFznvsNp33pasNJiLF7g57CZD7NFWWYAYQNXOlIocxy8aFZcZG+qQ22iQQXM8TIRE9WM9FAqIsk1Fx5ey+Eozh+0nG9PfLj4mrzCKRVxjIKZQ7jfBSu7xHRLApFN4oPGF4rB/Fs0GX6PuVhoaLqyILzQE6PS10JM/NG4PlPzG3nBlOzBBmAJX8pMBhkLd9WSbBWpy9WLlrPoh9ZtIGi8dBGRSMjLqQKYq96LwT9RDxjz0jZsMdaStOsnVuDgRYHLxQrzIObSFBSZ2Yn6o4Eg0EaJnqb29EbhauATYQiuz3Zt3r0uP6Xor5SlvTV7YXzwjpUE4fcMXVspfbmAagveLJ5kLbUfW1jxVK6U4zemftxtMm1h1umP2QBFtT7V5oxHZ8TUpqUjE42OuB06R5jv/nxKnJ15p82i0LnzrIVNlcS7fYaGHjDI10Eg+v1xrRf2PRRz6DQr4nFQMeuf1aCN5to9aH0LXu1XfnjOXod4f+ASyg0Bws96diw7OdA9OmU6QEKgJ+WKTk9MC19L4wVJZ8E1opxmxDHkVnQyoNN0x2yY/dBPWuELN9X3tRkDoRna2kgfX5ZQWkk9UH5v2Mt4fzVlW/QlOvhS4R5Xrtm61U4PSqox+atp/cACT/udjNeGiu4X4b7iV6FNHZ5kg=
+  organization: seattle-beach
+  space: weatherbus-dev
+  on:
+    repo: seattle-beach/weatherbus-bus
