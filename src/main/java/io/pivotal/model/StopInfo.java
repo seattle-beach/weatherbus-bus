@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class StopInfo {
+    @SerializedName("id")
     String stopId;
     String name;
 
