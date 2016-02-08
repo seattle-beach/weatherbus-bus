@@ -48,7 +48,8 @@ public class BusService {
                     response.getData().getEntry().getStopId(),
                     response.getData().getEntry().getName(),
                     response.getData().getEntry().getLatitude(),
-                    response.getData().getEntry().getLongitude());
+                    response.getData().getEntry().getLongitude(),
+                    response.getData().getEntry().getDirection());
             return stopInfo;
         } catch (RetrofitError e) {
             e.printStackTrace();

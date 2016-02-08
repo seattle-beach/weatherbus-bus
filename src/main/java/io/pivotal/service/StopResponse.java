@@ -36,6 +36,8 @@ public class StopResponse {
 
             @SerializedName("id")
             String stopId;
+
+            String direction;
         }
     }
 }

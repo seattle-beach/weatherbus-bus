@@ -67,7 +67,7 @@ public class BusesControllerTest {
 
     @Test
     public void testGetStop() throws Exception {
-        StopInfo stopInfo = new StopInfo("1_75403", "The name of the stop", 47.6098, -122.3332);
+        StopInfo stopInfo = new StopInfo("1_75403", "The name of the stop", 47.6098, -122.3332, "S");
 
         when(busService.getStopInfo("1_75403")).thenReturn(stopInfo);
         mockMvc.perform(get("/api/v1/stops/1_75403")).andExpect(
@@ -82,8 +82,8 @@ public class BusesControllerTest {
         double latitudeSpan = 0.01;
         double longitudeSpan = 0.01;
         List<StopInfo> stops = new ArrayList<StopInfo>() {{
-            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164));
-            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195));
+            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S"));
+            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S"));
         }};
         when(busService.getStopsForCoordinate(new Coordinate(latitude,longitude),latitudeSpan,longitudeSpan))
                 .thenReturn(stops);

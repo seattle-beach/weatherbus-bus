@@ -15,10 +15,13 @@ public class StopInfo {
     @SerializedName("lon")
     double longitude;
 
-    public StopInfo(String stopId, String name, double latitude, double longitude) {
+    String direction;
+
+    public StopInfo(String stopId, String name, double latitude, double longitude, String direction) {
         this.stopId = stopId;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.direction = direction;
     }
 }

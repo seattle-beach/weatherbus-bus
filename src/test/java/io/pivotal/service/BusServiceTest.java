@@ -78,7 +78,7 @@ public class BusServiceTest {
                 StopResponse.class);
         when(service.getStopInfo(stopId)).thenReturn(stopResponse);
 
-        StopInfo expected = new StopInfo(stopId, "Stevens Way & Benton Ln",47.6098, -122.3332);
+        StopInfo expected = new StopInfo(stopId, "Stevens Way & Benton Ln",47.6098, -122.3332, "S");
         StopInfo stopInfo = subject.getStopInfo(stopId);
 
         assertEquals(expected, stopInfo);
@@ -95,8 +95,8 @@ public class BusServiceTest {
         when(service.getStopsForLocation(coordinate.getLatitude(), coordinate.getLongitude(), latSpan, lngSpan))
                 .thenReturn(response);
         List<StopInfo> expected = new ArrayList<StopInfo>() {{
-            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164));
-            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195));
+            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S"));
+            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S"));
         }};
         List<StopInfo> actual = subject.getStopsForCoordinate(coordinate, latSpan, lngSpan);
 
