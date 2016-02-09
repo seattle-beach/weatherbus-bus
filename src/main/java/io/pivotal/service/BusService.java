@@ -1,20 +1,11 @@
 package io.pivotal.service;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
-import io.pivotal.Config;
 import io.pivotal.model.Coordinate;
 import io.pivotal.model.StopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-import retrofit.client.OkClient;
 
-import java.io.IOException;
 import java.net.UnknownServiceException;
 import java.util.List;
 
@@ -67,14 +58,5 @@ public class BusService {
             e.printStackTrace();
             throw new UnknownServiceException(e.getMessage());
         }
-    }
-
-    @Bean
-    public IOneBusAwayService getBusService() {
-        RestAdapter.Builder builder = new RestAdapter.Builder().setEndpoint(Config.ONEBUSAWAY_ENDPOINT);
-        builder.setClient(new OkClient());
-        builder.setRequestInterceptor(request -> request.addQueryParam("key", Config.ONEBUSAWAY_KEY));
-        RestAdapter adapter = builder.build();
-        return adapter.create(IOneBusAwayService.class);
     }
 }

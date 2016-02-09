@@ -1,6 +1,5 @@
 package io.pivotal.service;
 
-import io.pivotal.Config;
 import org.springframework.stereotype.Component;
 import retrofit.http.GET;
 import retrofit.http.Path;
