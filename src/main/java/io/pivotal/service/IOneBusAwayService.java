@@ -1,5 +1,8 @@
 package io.pivotal.service;
 
+import io.pivotal.service.response.DeparturesResponse;
+import io.pivotal.service.response.StopResponse;
+import io.pivotal.service.response.StopsForLocationResponse;
 import org.springframework.stereotype.Component;
 import retrofit.http.GET;
 import retrofit.http.Path;

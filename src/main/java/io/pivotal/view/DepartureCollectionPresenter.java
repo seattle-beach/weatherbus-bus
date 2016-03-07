@@ -1,6 +1,6 @@
 package io.pivotal.view;
 
-import io.pivotal.service.Departure;
+import io.pivotal.model.Departure;
 import lombok.Data;
 
 import java.util.List;
