@@ -3,7 +3,12 @@ package io.pivotal.service;
 import com.google.gson.Gson;
 import io.pivotal.TestUtilities;
 import io.pivotal.model.Coordinate;
+import io.pivotal.model.Departure;
 import io.pivotal.model.StopInfo;
+import io.pivotal.model.StopReferences;
+import io.pivotal.service.response.DeparturesResponse;
+import io.pivotal.service.response.StopResponse;
+import io.pivotal.service.response.StopsForLocationResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +53,7 @@ public class BusServiceTest {
 
     @Test(expected = UnknownServiceException.class)
     public void getStopInfo_shouldThrowUnknownServiceException_forBadStop() throws Exception {
-        subject.getStopInfo(badStop);
+        subject.getStopData(badStop);
     }
 
     @Test
@@ -78,10 +83,19 @@ public class BusServiceTest {
                 StopResponse.class);
         when(service.getStopInfo(stopId)).thenReturn(stopResponse);
 
-        StopInfo expected = new StopInfo(stopId, "Stevens Way & Benton Ln",47.6098, -122.3332, "S");
-        StopInfo stopInfo = subject.getStopInfo(stopId);
+        StopResponse.StopData expected = new StopResponse.StopData(
+                new StopInfo(stopId, "Stevens Way & Benton Ln",47.6098, -122.3332, "S", new ArrayList<String>() {{
+                    add("1_100140");
+                    add("29_880");
+                }}),
+                new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
+                    add(new StopReferences.RouteReference("1_100140", "25"));
+                    add(new StopReferences.RouteReference("29_880", "880"));
+                }}));
 
-        assertEquals(expected, stopInfo);
+        StopResponse.StopData actual = subject.getStopData(stopId);
+
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -94,11 +108,28 @@ public class BusServiceTest {
                 StopsForLocationResponse.class);
         when(service.getStopsForLocation(coordinate.getLatitude(), coordinate.getLongitude(), latSpan, lngSpan))
                 .thenReturn(response);
-        List<StopInfo> expected = new ArrayList<StopInfo>() {{
-            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S"));
-            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S"));
-        }};
-        List<StopInfo> actual = subject.getStopsForCoordinate(coordinate, latSpan, lngSpan);
+
+        StopsForLocationResponse.StopsData expected = new StopsForLocationResponse.StopsData(
+                new ArrayList<StopInfo>() {{
+                    add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S", new ArrayList<String>() {{
+                        add("1_100223");
+                        add("40_100451");
+                        add("40_586");
+                    }}));
+                    add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S", new ArrayList<String>() {{
+                        add("1_100140");
+                        add("1_100223");
+                        add("40_100451");
+                        add("40_586");
+                    }}));
+                }},
+                new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
+                    add(new StopReferences.RouteReference("1_100223","43"));
+                    add(new StopReferences.RouteReference("40_100451","556"));
+                    add(new StopReferences.RouteReference("40_586","586"));
+                    add(new StopReferences.RouteReference("1_100140","25"));
+                }}));
+        StopsForLocationResponse.StopsData actual = subject.getStopsForCoordinate(coordinate, latSpan, lngSpan);
 
         assertEquals(expected, actual);
     }

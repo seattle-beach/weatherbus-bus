@@ -2,9 +2,12 @@ package io.pivotal.controllers;
 
 import io.pivotal.TestUtilities;
 import io.pivotal.model.Coordinate;
+import io.pivotal.model.Departure;
 import io.pivotal.model.StopInfo;
+import io.pivotal.model.StopReferences;
 import io.pivotal.service.BusService;
-import io.pivotal.service.Departure;
+import io.pivotal.service.response.StopResponse;
+import io.pivotal.service.response.StopsForLocationResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,9 +70,16 @@ public class BusesControllerTest {
 
     @Test
     public void testGetStop() throws Exception {
-        StopInfo stopInfo = new StopInfo("1_75403", "The name of the stop", 47.6098, -122.3332, "S");
-
-        when(busService.getStopInfo("1_75403")).thenReturn(stopInfo);
+        when(busService.getStopData("1_75403")).thenReturn(
+                new StopResponse.StopData(
+                        new StopInfo("1_75403", "The name of the stop", 47.6098, -122.3332, "S", new ArrayList<String>() {{
+                            add("1_100140");
+                            add("29_880");
+                        }}),
+                        new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
+                            add(new StopReferences.RouteReference("1_100140", "25"));
+                            add(new StopReferences.RouteReference("29_880", "880"));
+                        }})));
         mockMvc.perform(get("/api/v1/stops/1_75403")).andExpect(
                 json().isEqualTo(TestUtilities.jsonFileToString(
                         "src/test/resources/output/StopsGetResponse.json")));
@@ -82,11 +92,29 @@ public class BusesControllerTest {
         double latitudeSpan = 0.01;
         double longitudeSpan = 0.01;
         List<StopInfo> stops = new ArrayList<StopInfo>() {{
-            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S"));
-            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S"));
+            add(new StopInfo("1_10914", "15th Ave NE & NE Campus Pkwy", 47.656422, -122.312164, "S", new ArrayList<String>() {{
+                add("1_100223");
+                add("40_100451");
+                add("40_586");
+            }}));
+            add(new StopInfo("1_10917", "15th Ave NE & NE 40th St", 47.655048, -122.312195, "S", new ArrayList<String>() {{
+                add("1_100140");
+                add("1_100223");
+                add("40_586");
+            }}));
         }};
+
+        StopReferences references = new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
+            add(new StopReferences.RouteReference("1_100223", "43"));
+            add(new StopReferences.RouteReference("1_100140", "25"));
+            add(new StopReferences.RouteReference("40_100451", "556"));
+            add(new StopReferences.RouteReference("40_586", "586"));
+        }});
+
+        StopsForLocationResponse.StopsData response = new StopsForLocationResponse.StopsData(stops, references);
+
         when(busService.getStopsForCoordinate(new Coordinate(latitude,longitude),latitudeSpan,longitudeSpan))
-                .thenReturn(stops);
+                .thenReturn(response);
 
         mockMvc.perform(get("/api/v1/stops?lat=" + latitude + "&lng=" + longitude
                 + "&latSpan=" + latitudeSpan + "&lngSpan=" + longitudeSpan))
