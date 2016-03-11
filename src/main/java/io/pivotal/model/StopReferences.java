@@ -13,6 +13,7 @@ public class StopReferences {
     public static class RouteReference {
         private final String id;
         private final String shortName;
+        private final String longName;
     }
 
 }

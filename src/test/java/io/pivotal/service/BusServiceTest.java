@@ -89,8 +89,8 @@ public class BusServiceTest {
                     add("29_880");
                 }}),
                 new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
-                    add(new StopReferences.RouteReference("1_100140", "25"));
-                    add(new StopReferences.RouteReference("29_880", "880"));
+                    add(new StopReferences.RouteReference("1_100140", "25", ""));
+                    add(new StopReferences.RouteReference("29_880", "880", "Mukilteo - University District"));
                 }}));
 
         StopResponse.StopData actual = subject.getStopData(stopId);
@@ -124,10 +124,10 @@ public class BusServiceTest {
                     }}));
                 }},
                 new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
-                    add(new StopReferences.RouteReference("1_100223","43"));
-                    add(new StopReferences.RouteReference("40_100451","556"));
-                    add(new StopReferences.RouteReference("40_586","586"));
-                    add(new StopReferences.RouteReference("1_100140","25"));
+                    add(new StopReferences.RouteReference("1_100223","43", ""));
+                    add(new StopReferences.RouteReference("40_100451","556", "Issaquah - Northgate"));
+                    add(new StopReferences.RouteReference("40_586","586", "Tacoma - U. District"));
+                    add(new StopReferences.RouteReference("1_100140","25", ""));
                 }}));
         StopsForLocationResponse.StopsData actual = subject.getStopsForCoordinate(coordinate, latSpan, lngSpan);
 

@@ -77,8 +77,8 @@ public class BusesControllerTest {
                             add("29_880");
                         }}),
                         new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
-                            add(new StopReferences.RouteReference("1_100140", "25"));
-                            add(new StopReferences.RouteReference("29_880", "880"));
+                            add(new StopReferences.RouteReference("1_100140", "25", ""));
+                            add(new StopReferences.RouteReference("29_880", "880", "Mukilteo - University District"));
                         }})));
         mockMvc.perform(get("/api/v1/stops/1_75403")).andExpect(
                 json().isEqualTo(TestUtilities.jsonFileToString(
@@ -105,10 +105,10 @@ public class BusesControllerTest {
         }};
 
         StopReferences references = new StopReferences(new ArrayList<StopReferences.RouteReference>() {{
-            add(new StopReferences.RouteReference("1_100223", "43"));
-            add(new StopReferences.RouteReference("1_100140", "25"));
-            add(new StopReferences.RouteReference("40_100451", "556"));
-            add(new StopReferences.RouteReference("40_586", "586"));
+            add(new StopReferences.RouteReference("1_100223", "43", ""));
+            add(new StopReferences.RouteReference("1_100140", "25", ""));
+            add(new StopReferences.RouteReference("40_100451", "556", "Issaquah - Northgate"));
+            add(new StopReferences.RouteReference("40_586", "586", "Tacoma - U. District"));
         }});
 
         StopsForLocationResponse.StopsData response = new StopsForLocationResponse.StopsData(stops, references);
