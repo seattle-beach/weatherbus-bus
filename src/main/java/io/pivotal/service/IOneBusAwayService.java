@@ -10,7 +10,7 @@ import retrofit.http.Query;
 
 @Component
 public interface IOneBusAwayService {
-    @GET("/api/where/arrivals-and-departures-for-stop/{stop}.json?minutesBefore=15&minutesAfter=45")
+    @GET("/api/where/arrivals-and-departures-for-stop/{stop}.json?minutesBefore=5&minutesAfter=45")
     DeparturesResponse getDeparturesForStop(@Path("stop") String stopId);
 
     @GET("/api/where/stop/{stop}.json")
