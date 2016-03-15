@@ -19,3 +19,7 @@ To get started:
 5. Tell compiler that lombok is a thing
         * Preferences -> Plugins -> Install
         * Install lombok plugin
+6. Enable annotation processing
+        * IntelliJ Idea -> Preferences
+        * Build, Execution, Deployment -> Compiler -> Annotation Processors
+        * Check "Enable annotation processing"
